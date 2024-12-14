@@ -5,11 +5,8 @@ from typing import Any
 
 
 class BaseRepo(ABC):
+    @abstractmethod
+    async def get_all(self) -> list[Any]: ...
 
     @abstractmethod
-    async def get_all(self) -> list[Any]:
-        ...
-
-    @abstractmethod
-    async def add(self, batch: Any) -> None:
-        ...
+    async def add(self, batch: Any) -> None: ...

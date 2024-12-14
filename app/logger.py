@@ -6,9 +6,7 @@ from app.config import settings
 logger = logging.getLogger(settings.app.app_name)
 logger.setLevel(logging.INFO)
 handler = logging.StreamHandler()
-formatter = logging.Formatter(
-    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 base_config = {
@@ -34,7 +32,7 @@ base_config = {
             "level": "INFO",
             "propagate": False,
         }
-    }
+    },
 }
 dictConfig(base_config)
 # DEBUG=10
