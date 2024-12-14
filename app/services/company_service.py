@@ -5,7 +5,6 @@ from app.exceptions import SqlException, DuplicateException
 from app.models.companies_model import Company
 from app.repositories.company_repo import company_repo
 from app.schemas.company_schemas import CompanySchema
-from app.logger import logger
 
 
 class CompanyService:
@@ -21,7 +20,6 @@ class CompanyService:
         try:
             await self.repo.add(company=company, session=session)
         except SqlException as exc:
-            logger.error("Company already exists")
             raise DuplicateException(message=str(exc))
 
 

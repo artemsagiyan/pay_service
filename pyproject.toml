@@ -17,6 +17,7 @@ asyncpg = "^0.30.0"
 unicorn = "^2.1.1"
 typer = "^0.13.1"
 uvicorn = "^0.32.1"
+structlog = "^24.4.0"
 
 
 [build-system]
