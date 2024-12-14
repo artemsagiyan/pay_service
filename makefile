@@ -11,3 +11,8 @@ migration:
 	@echo "running migrations..."
 	alembic revision --autogenerate -m "inittial migration1"
 
+
+start:
+	@echo "starting app..."
+	poetry run python cli.py api
+

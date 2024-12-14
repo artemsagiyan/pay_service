@@ -8,8 +8,6 @@ def setup_routers(app: FastAPI) -> None:
 
 
 def get_app() -> FastAPI:
-    app = FastAPI(
-        title="Pay Service"
-    )
+    app = FastAPI(title="Pay Service")
     setup_routers(app)
     return app

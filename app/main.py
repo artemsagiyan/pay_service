@@ -2,11 +2,11 @@ import uvicorn
 from fastapi import FastAPI
 from app.app import get_app
 from app.config import settings
-# from app.logger import logger
+from app.logger import logger
 
 
 def run_api_app() -> None:
-    # configure_logger()
+    logger.info("STARTING APP")
     # logger.info("MY APP STARTED")
     # app = FastAPI(docs_url=None)
     app = get_app()
