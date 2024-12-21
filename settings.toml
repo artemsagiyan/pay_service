@@ -7,8 +7,13 @@ app_mount = "/api/v1"
 
 
 [db_settings]
-db_name = "postgres"
-db_user = "myuser"
-db_password = "mypassword"
+db_name = "postgres_db"
+db_user = "postgres_user"
+db_password = "postgres_password"
 db_host = "localhost"
 db_port = "5433"
+
+
+[kinopoisk_settings]
+api_url = "https://kinopoiskapiunofficial.tech"
+api_key = "00907a7b-72d5-4353-b0e0-2f7fe9057746"

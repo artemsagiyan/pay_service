@@ -21,15 +21,20 @@ class APPConfig(BaseModel):
     app_host: str
     app_mount: str
 
+class KinopoiskConfig(BaseModel):
+    api_url: str
+    api_key: str
+
 
 class Settings(BaseModel):
     app: APPConfig
     db: DBConfig
+    kinopoisk: KinopoiskConfig
 
 
 dyna_settings = Dynaconf(
     settings_files=["settings.toml"],
 )
 
-settings = Settings(app=dyna_settings["app_settings"], db=dyna_settings["db_settings"])
+settings = Settings(app=dyna_settings["app_settings"], db=dyna_settings["db_settings"], kinopoisk=dyna_settings["kinopoisk_settings"])
 # print(settings.app.app_port)

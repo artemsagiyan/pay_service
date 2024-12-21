@@ -1,4 +1,4 @@
-from mypy.types import names
+# from mypy.types import names
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.exceptions import SqlException, DuplicateException
