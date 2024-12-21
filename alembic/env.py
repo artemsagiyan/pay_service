@@ -8,6 +8,7 @@ from app.models.payments_model import Payment
 from app.models.companies_model import Company
 from app.models.films_model import Film
 from app.models.users_model import User
+from app.models import user_film_association
 from app.config import settings
 
 # this is the Alembic Config object, which provides

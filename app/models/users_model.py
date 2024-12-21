@@ -1,29 +1,32 @@
 from uuid import UUID, uuid4
-from sqlalchemy import String, ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy.dialects.postgresql import UUID as U_UUID
-from app.models.base_model import BaseModel
+from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy.orm import relationship
+from sqlalchemy.dialects.postgresql import UUID as PgUUID
+from sqlalchemy.dialects.postgresql import UUID
+
 from app.db import Base
+from app.security.auth import pwd_context
 
 
-class User(BaseModel, Base):
+class User(Base):
     __tablename__ = 'users'
 
-    uuid: Mapped[UUID] = mapped_column(U_UUID(as_uuid=True), primary_key=True, default=uuid4, unique=True)
-    username: Mapped[str] = mapped_column(String(256), nullable=False, unique=True)
-    password: Mapped[str] = mapped_column(String(256), nullable=False)
-    films: Mapped[bool] = mapped_column(String(256), ForeignKey('films.film_id'), nullable=False)
+    uuid = Column(UUID, primary_key=True, unique=True, default=uuid4)
+    username = Column(String(256), nullable=False, unique=True)
+    password = Column(String(256), nullable=False)
+
+    films = relationship("Film", secondary="user_film_association", back_populates="users")
 
     def __repr__(self):
-        return (
-            f"UUID(user_id={self.uuid!r}, "
-            f"username={self.username!r}, "
-            f"films={self.films!r}, "
-        )
+        return f"User(uuid={self.uuid}, username={self.username}, films={self.films})"
 
     def __str__(self):
-        return (
-            f"UUID(user_id={self.uuid!r}, "
-            f"username={self.username!r}, "
-            f"films={self.films!r}, "
-        )
+        return f"User(uuid={self.uuid}, username={self.username}, films={self.films})"
+
+    # Метод для хэширования пароля
+    def set_password(self, password: str):
+        self.password = pwd_context.hash(password)
+
+    # Метод для проверки пароля
+    def verify_password(self, password: str) -> bool:
+        return pwd_context.verify(password, self.password)

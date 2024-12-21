@@ -1,14 +1,21 @@
 from uuid import UUID, uuid4
-from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy.dialects.postgresql import UUID as U_UUID
+from sqlalchemy import Column, String
+from sqlalchemy.dialects.postgresql import UUID as PgUUID
+from sqlalchemy.orm import relationship
 
 from app.db import Base
-from app.models.base_model import BaseModel
 
 
-class Film(BaseModel, Base):
+class Film(Base):
     __tablename__ = 'films'
 
-    film_id: Mapped[UUID] = mapped_column(U_UUID(as_uuid=True), default=uuid4, primary_key=True, unique=True)
-    name: Mapped[str] = mapped_column(String(256))
+    film_id = Column(PgUUID(as_uuid=True), primary_key=True, unique=True, default=uuid4)
+    name = Column(String(256), nullable=False)
+
+    users = relationship("User", secondary="user_film_association", back_populates="films")
+
+    def __repr__(self):
+        return f"Film(film_id={self.film_id}, name={self.name})"
+
+    def __str__(self):
+        return f"Film(film_id={self.film_id}, name={self.name})"
